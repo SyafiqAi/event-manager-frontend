@@ -1,27 +1,33 @@
 "use client";
 
-import {
-  CircularProgress,
-  Typography
-} from "@mui/material";
-import { useEvents } from "./hooks/useEvents";
+import { CircularProgress } from "@mui/material";
+import { GridPaginationModel } from "@mui/x-data-grid";
 import dynamic from "next/dynamic";
+import { useState } from "react";
+import { useEvents } from "./hooks/useEvents";
 
 // Dynamically import EventListTable with SSR disabled
-const EventListTable = dynamic(() => import('./components/EventListTable'), {
+const EventListTable = dynamic(() => import("./components/EventListTable"), {
   ssr: false,
 });
 
-
-
 export default function EventList() {
-  const { data, isLoading, isError, error } = useEvents();
+  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
+    page: 0,
+    pageSize: 1,
+  });
 
-  if (isLoading) return <CircularProgress />;
-  if (isError)
-    return <Typography color="error">{(error as Error).message}</Typography>;
+  const res = useEvents(paginationModel.page + 1, paginationModel.pageSize);
+
+  if (res.isLoading) return <CircularProgress />;
 
   return (
-    <EventListTable data={data?.data} />
+    <EventListTable
+      data={res.data?.data}
+      rowCount={res.data?.total ?? 0}
+      isLoading={res.isFetching}
+      paginationModel={paginationModel}
+      onPageChange={(model) => setPaginationModel(model)}
+    />
   );
 }
