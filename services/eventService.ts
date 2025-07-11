@@ -1,15 +1,8 @@
 import { EventStatus } from "@/app/events/interfaces/eventStatus.enum";
 
-enum SortBy {
-  NAME = "name",
-  START_DATE = "startDate",
-  END_DATE = "endDate",
-  LOCATION = "location",
-}
-
 export interface FetchEventsParams {
   search?: string;
-  sortBy?: SortBy;
+  sortBy?: string;
   sortOrder?: string;
   fromDate?: Date;
   toDate?: Date;

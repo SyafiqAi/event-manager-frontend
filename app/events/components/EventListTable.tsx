@@ -1,14 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { DataGrid, GridColDef, GridPaginationModel } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import { Event } from "../interfaces/event.interface";
 
 const columns: GridColDef<Event>[] = [
   { field: "name", headerName: "Name", width: 130 },
-  { field: "location", headerName: "Location", width: 130 },
-  { field: "status", headerName: "Status", width: 130,  },
+  { field: "location", headerName: "Location", width: 130, },
+  { field: "status", headerName: "Status", width: 130, sortable: false  },
   {
     field: "startDate",
     headerName: "From",
@@ -31,6 +31,7 @@ type EventListTableProps = {
   isLoading: boolean;
   onPageChange: (model: GridPaginationModel) => void;
   paginationModel: GridPaginationModel;
+  onSortModelChange: (model: GridSortModel) => void;
 };
 
 export default function EventListTable({
@@ -39,6 +40,7 @@ export default function EventListTable({
   isLoading,
   onPageChange,
   paginationModel,
+  onSortModelChange
 }: EventListTableProps) {
   return (
     <Paper sx={{ height: 400, width: "100%" }}>
@@ -53,6 +55,8 @@ export default function EventListTable({
         onPaginationModelChange={onPageChange}
         pageSizeOptions={[5, 10]}
         sx={{ border: 0 }}
+        sortingMode="server"
+        onSortModelChange={onSortModelChange}
       />
     </Paper>
   );
