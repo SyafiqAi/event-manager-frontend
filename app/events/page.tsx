@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useEvents } from "./hooks/useEvents";
 import { TextField } from "@mui/material";
 import SearchInput from "../components/SearchInput";
+import DateInputExample from "../components/DateInput";
 
 // Dynamically import EventListTable with SSR disabled
 const EventListTable = dynamic(() => import("./components/EventListTable"), {
@@ -26,6 +27,9 @@ export default function EventList() {
   const [filterModel, setFilterModel] = useState<GridFilterModel>();
   const [search, setSearch] = useState("");
 
+  const [toDate, setToDate] = useState<Date | null>();
+  const [fromDate, setFromDate] = useState<Date | null>();
+
   const res = useEvents({
     page: paginationModel.page + 1,
     pageSize: paginationModel.pageSize,
@@ -33,6 +37,8 @@ export default function EventList() {
     sortOrder: sortModel[0]?.sort ?? undefined,
     status: filterModel?.items[0]?.value,
     search,
+    toDate: toDate ?? undefined,
+    fromDate: fromDate ?? undefined,
   });
 
   // if (res.isLoading) return <CircularProgress />;
@@ -43,6 +49,10 @@ export default function EventList() {
         value={search}
         placeholder="Search event name or location"
         onDebouncedChange={setSearch}
+      />
+      <DateInputExample
+        onFromDateChange={setFromDate}
+        onToDateChange={setToDate}
       />
       <EventListTable
         data={res.data?.data}
