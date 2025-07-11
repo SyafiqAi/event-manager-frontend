@@ -1,11 +1,11 @@
-import { fetchEvents } from "@/services/eventService";
+import { fetchEvents, FetchEventsParams } from "@/services/eventService";
 import { useQuery } from "@tanstack/react-query";
 import { Event } from "../interfaces/event.interface";
 import { PaginatedData } from "@/app/interfaces/paginatedData.interface";
 
-export const useEvents = (page: number, pageSize: number) => {
+export const useEvents = (params: FetchEventsParams) => {
   return useQuery<PaginatedData<Event>>({
-    queryKey: ["events", page, pageSize],
-    queryFn: () => fetchEvents(page, pageSize),
+    queryKey: ["events", params],
+    queryFn: () => fetchEvents(params),
   });
 };

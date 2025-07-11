@@ -8,7 +8,7 @@ import { Event } from "../interfaces/event.interface";
 const columns: GridColDef<Event>[] = [
   { field: "name", headerName: "Name", width: 130 },
   { field: "location", headerName: "Location", width: 130 },
-  { field: "status", headerName: "Status", width: 130 },
+  { field: "status", headerName: "Status", width: 130,  },
   {
     field: "startDate",
     headerName: "From",

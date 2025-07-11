@@ -14,10 +14,13 @@ const EventListTable = dynamic(() => import("./components/EventListTable"), {
 export default function EventList() {
   const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
     page: 0,
-    pageSize: 1,
+    pageSize: 10,
   });
 
-  const res = useEvents(paginationModel.page + 1, paginationModel.pageSize);
+  const res = useEvents({
+    page: paginationModel.page + 1,
+    pageSize: paginationModel.pageSize,
+  });
 
   if (res.isLoading) return <CircularProgress />;
 
