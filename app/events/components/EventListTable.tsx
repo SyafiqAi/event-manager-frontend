@@ -106,7 +106,12 @@ export default function EventListTable({
         paginationModel={paginationModel}
         onPaginationModelChange={onPageChange}
         pageSizeOptions={[5, 10]}
-        sx={{ border: 0 }}
+        sx={{
+          border: 0,
+          "& .MuiDataGrid-row:hover": {
+            cursor: "pointer",
+          },
+        }}
         sortingMode="server"
         onSortModelChange={onSortModelChange}
         filterMode="server"

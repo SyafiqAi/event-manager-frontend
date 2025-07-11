@@ -44,7 +44,7 @@ export default function EventList() {
 
   // if (res.isLoading) return <CircularProgress />;
   
-  const router = useRouter();
+  // const router = useRouter();
   function onRowClick(id: number) {
     alert(id);
   }
