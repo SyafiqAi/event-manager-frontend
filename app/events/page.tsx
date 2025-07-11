@@ -11,6 +11,7 @@ import { useEvents } from "./hooks/useEvents";
 import { TextField } from "@mui/material";
 import SearchInput from "../components/SearchInput";
 import DateInputExample from "../components/DateInput";
+import { useRouter } from "next/router";
 
 // Dynamically import EventListTable with SSR disabled
 const EventListTable = dynamic(() => import("./components/EventListTable"), {
@@ -42,7 +43,12 @@ export default function EventList() {
   });
 
   // if (res.isLoading) return <CircularProgress />;
-
+  
+  const router = useRouter();
+  function onRowClick(id: number) {
+    alert(id);
+  }
+  
   return (
     <div>
       <SearchInput
@@ -62,6 +68,7 @@ export default function EventList() {
         onPageChange={setPaginationModel}
         onSortModelChange={setSortModel}
         onFilterModelChange={setFilterModel}
+        onRowClick={onRowClick}
       />
     </div>
   );

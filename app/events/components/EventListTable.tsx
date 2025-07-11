@@ -15,7 +15,10 @@ import { Event } from "../interfaces/event.interface";
 import { Select, MenuItem } from "@mui/material";
 import { EventStatus } from "../interfaces/eventStatus.enum";
 
-const statusOptions: EventStatus[] = [EventStatus.COMPLETED, EventStatus.ONGOING];
+const statusOptions: EventStatus[] = [
+  EventStatus.COMPLETED,
+  EventStatus.ONGOING,
+];
 
 const statusEqualsOperator: GridFilterOperator = {
   label: "is",
@@ -78,16 +81,18 @@ type EventListTableProps = {
   paginationModel: GridPaginationModel;
   onSortModelChange: (model: GridSortModel) => void;
   onFilterModelChange: (model: GridFilterModel) => void;
+  onRowClick: (eventId: number) => void;
 };
 
 export default function EventListTable({
   data,
   rowCount,
   isLoading,
+  onRowClick,
   onPageChange,
   paginationModel,
   onSortModelChange,
-  onFilterModelChange
+  onFilterModelChange,
 }: EventListTableProps) {
   return (
     <Paper sx={{ height: 400, width: "100%" }}>
@@ -106,6 +111,9 @@ export default function EventListTable({
         onSortModelChange={onSortModelChange}
         filterMode="server"
         onFilterModelChange={onFilterModelChange}
+        onRowClick={(e) => {
+          onRowClick(Number(e.id));
+        }}
       />
     </Paper>
   );
