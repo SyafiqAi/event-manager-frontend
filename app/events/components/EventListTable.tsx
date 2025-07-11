@@ -6,7 +6,6 @@ import Paper from "@mui/material/Paper";
 import { Event } from "../interfaces/event.interface";
 
 const columns: GridColDef<Event>[] = [
-  //   { field: "id", headerName: "ID", width: 70 },
   { field: "name", headerName: "Name", width: 130 },
   { field: "location", headerName: "Location", width: 130 },
   { field: "status", headerName: "Status", width: 130 },
@@ -26,7 +25,6 @@ const columns: GridColDef<Event>[] = [
   },
 ];
 
-const paginationModel = { page: 0, pageSize: 5 };
 type EventListTableProps = {
   data?: Event[];
   rowCount: number;
