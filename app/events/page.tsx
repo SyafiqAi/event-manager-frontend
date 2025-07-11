@@ -1,7 +1,10 @@
 "use client";
 
-import { CircularProgress } from "@mui/material";
-import { GridFilterModel, GridPaginationModel, GridSortModel } from "@mui/x-data-grid";
+import {
+  GridFilterModel,
+  GridPaginationModel,
+  GridSortModel,
+} from "@mui/x-data-grid";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useEvents } from "./hooks/useEvents";
@@ -17,8 +20,8 @@ export default function EventList() {
     pageSize: 10,
   });
 
-  const [sortModel, setSortModel] = useState<GridSortModel>([])
-  const [filterModel, setFilterModel] = useState<GridFilterModel>()
+  const [sortModel, setSortModel] = useState<GridSortModel>([]);
+  const [filterModel, setFilterModel] = useState<GridFilterModel>();
 
   const res = useEvents({
     page: paginationModel.page + 1,
