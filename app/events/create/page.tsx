@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Stack, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import InputFileUpload from "../components/UploadFileButton";
 import { useForm, Controller } from "react-hook-form";
@@ -35,6 +35,18 @@ export default function CreateNewEvent() {
   });
 
   const fromDateValue = watch("fromDate");
+
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const handleFileChange = (fileList: FileList | null) => {
+    const file = fileList?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    } else {
+      setPreviewUrl(null);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -107,12 +119,29 @@ export default function CreateNewEvent() {
           rules={{
             required: "Thumbnail is required",
           }}
-          render={({ field }) => <InputFileUpload onChange={field.onChange} />}
+          render={({ field }) => (
+            <InputFileUpload
+              onChange={(e) => {
+                field.onChange(e);
+                handleFileChange(e);
+              }}
+            />
+          )}
         />{" "}
         {errors.thumbnail && (
-          <span style={{ color: "red", fontSize:"0.8rem" }}>{errors.thumbnail.message}</span>
+          <span style={{ color: "red", fontSize: "0.8rem" }}>
+            {errors.thumbnail.message}
+          </span>
         )}
-
+        {previewUrl && (
+          <Box mt={2}>
+            <img
+              src={previewUrl}
+              alt="Event Poster Preview"
+              style={{ maxWidth: "300px", borderRadius: "8px" }}
+            />
+          </Box>
+        )}
         <Button type="submit" variant="contained">
           Submit
         </Button>
