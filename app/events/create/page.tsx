@@ -6,9 +6,24 @@ import InputFileUpload from "../components/UploadFileButton";
 import { useForm, Controller } from "react-hook-form";
 import DateInput from "@/app/components/DateInput";
 import { EventFormValues } from "../interfaces/eventFormValues.interface";
+import { createEventWithThumbnail } from "@/lib/createEventWithThumbnail";
 
-const onSubmit = (data: EventFormValues) => {
-  console.log("Submitted data:", data);
+const onSubmit = async (data: EventFormValues) => {
+  if (!data.fromDate || !data.toDate || !data.thumbnail) return;
+
+  try {
+    await createEventWithThumbnail({
+      name: data.name,
+      location: data.location,
+      fromDate: data.fromDate,
+      toDate: data.toDate,
+      thumbnail: data.thumbnail,
+    });
+    alert("ok");
+  } catch (e) {
+    console.log(e);
+    alert(`error: ${e}`);
+  }
 };
 
 export default function CreateNewEvent() {

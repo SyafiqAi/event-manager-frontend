@@ -1,4 +1,5 @@
 import { EventStatus } from "@/app/events/interfaces/eventStatus.enum";
+import { CreateEventBody } from "@/interfaces/createEventBody";
 
 export interface FetchEventsParams {
   search?: string;
@@ -46,6 +47,29 @@ export const fetchEvents = async ({
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.message || "Failed to fetch events");
+  }
+
+  const js = await res.json();
+  console.log({ js });
+  return js;
+};
+
+export const createEvent = async (body: CreateEventBody) => {
+  const token = localStorage.getItem("accessToken");
+
+  let url = `http://localhost:9000/events`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || "Failed to create event");
   }
 
   const js = await res.json();
