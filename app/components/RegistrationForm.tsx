@@ -2,6 +2,9 @@
 
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
+import { Role } from "../interfaces/role.enum";
+import { register } from "@/services/authService";
+import { useRouter } from "next/navigation";
 
 interface RegisterFormValues {
   name: string;
@@ -9,7 +12,7 @@ interface RegisterFormValues {
   password: string;
 }
 
-export default function RegisterPage() {
+export default function RegisterPage({ role }: { role: Role }) {
   const {
     control,
     handleSubmit,
@@ -22,10 +25,16 @@ export default function RegisterPage() {
     },
   });
 
-  const onSubmit = (data: RegisterFormValues) => {
-    console.log("Register data:", data);
-    alert("Registered!");
-    // Call your registration service here
+  const router = useRouter();
+  const onSubmit = async (data: RegisterFormValues) => {
+    try {
+      await register(data.email, data.password, data.name, role);
+  
+      router.push(role === Role.USER ? "/events" : "/admin/events");
+    } catch(e) {
+      console.log(e);
+      alert(e)
+    }
   };
 
   return (
