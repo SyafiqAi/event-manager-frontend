@@ -5,7 +5,7 @@ import { endOfDay } from "date-fns";
 import { useState } from "react";
 
 interface DateInputProps {
-  value: Date | null;
+  value?: Date | null;
   onDateChange: (date: Date | null) => void;
   label: string;
   error?: boolean;
