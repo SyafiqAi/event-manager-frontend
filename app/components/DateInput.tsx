@@ -9,7 +9,7 @@ interface DateInputProps {
   onToDateChange: (date: Date | null) => void;
 }
 
-export default function DateInputExample({
+export default function DateInputToFrom({
   onFromDateChange,
   onToDateChange,
 }: DateInputProps) {

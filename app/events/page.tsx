@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useEvents } from "./hooks/useEvents";
 import { Button, TextField } from "@mui/material";
 import SearchInput from "../components/SearchInput";
-import DateInputExample from "../components/DateInput";
+import DateInputToFrom from "../components/DateInput";
 import { useRouter } from "next/navigation";
 
 // Dynamically import EventListTable with SSR disabled
@@ -61,7 +61,7 @@ export default function EventList() {
         placeholder="Search event name or location"
         onDebouncedChange={setSearch}
       />
-      <DateInputExample
+      <DateInputToFrom
         onFromDateChange={setFromDate}
         onToDateChange={setToDate}
       />

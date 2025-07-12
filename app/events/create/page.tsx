@@ -1,6 +1,6 @@
 'use client'
 
-import DateInputExample from "@/app/components/DateInput";
+import DateInputToFrom from "@/app/components/DateInput";
 import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 import InputFileUpload from "../components/UploadFileButton";
@@ -14,7 +14,7 @@ export default function CreateNewEvent() {
     <div>
       <TextField label="Event Name" />
       <TextField label="Location" />
-      <DateInputExample
+      <DateInputToFrom
         onFromDateChange={setFromDate}
         onToDateChange={setToDate}
       />
