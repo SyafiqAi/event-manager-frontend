@@ -44,16 +44,15 @@ export default function EventList() {
 
   // if (res.isLoading) return <CircularProgress />;
   
-  // const router = useRouter();
-  function onRowClick(id: number) {
-    alert(id);
-  }
 
   const router = useRouter();
   function showNewEventPage() {
     router.push('/events/create')
   }
   
+  function showUpdateEventPage(eventId: number) {
+    router.push(`/events/${eventId}/update`)
+  }
   return (
     <div>
       <SearchInput
@@ -73,7 +72,7 @@ export default function EventList() {
         onPageChange={setPaginationModel}
         onSortModelChange={setSortModel}
         onFilterModelChange={setFilterModel}
-        onRowClick={onRowClick}
+        onRowClick={showUpdateEventPage}
       />
       <Button onClick={showNewEventPage} variant="contained">New Event</Button>
     </div>
