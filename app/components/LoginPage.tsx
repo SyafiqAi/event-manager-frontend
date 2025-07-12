@@ -21,9 +21,7 @@ export default function LoginForm() {
   const router = useRouter();
   const onSubmit = async (data: LoginFormValues) => {
     try {
-      console.log("Login data:", data);
       const { access_token } = await login(data.email, data.password);
-      console.log({ access_token });
       localStorage.setItem("accessToken", access_token);
 
       const {role} = await getProfile();

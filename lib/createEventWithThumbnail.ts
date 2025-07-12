@@ -9,7 +9,6 @@ export interface createEventWithThumbnailData {
 }
 
 export async function createEventWithThumbnail(data: createEventWithThumbnailData) {
-  console.log("Submitted data:", data);
   const {id: eventId} = await createEvent({
       name: data.name,
       startDate: data.fromDate.toISOString(),

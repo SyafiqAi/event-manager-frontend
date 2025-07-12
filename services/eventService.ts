@@ -51,7 +51,6 @@ export const fetchEvents = async ({
   }
 
   const js = await res.json();
-  console.log({ js });
   return js;
 };
 
@@ -74,7 +73,6 @@ export const createEvent = async (body: CreateEventBody) => {
   }
 
   const js = await res.json();
-  console.log({ js });
   return js;
 };
 
