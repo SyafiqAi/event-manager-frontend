@@ -40,7 +40,7 @@ export default function RegisterPage({ role }: { role: Role }) {
   return (
     <Box maxWidth={400} mx="auto" mt={8}>
       <Typography variant="h5" mb={2}>
-        Register
+        Register {role}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
