@@ -8,10 +8,10 @@ import {
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useEvents } from "./hooks/useEvents";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import SearchInput from "../components/SearchInput";
 import DateInputExample from "../components/DateInput";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 // Dynamically import EventListTable with SSR disabled
 const EventListTable = dynamic(() => import("./components/EventListTable"), {
@@ -48,6 +48,11 @@ export default function EventList() {
   function onRowClick(id: number) {
     alert(id);
   }
+
+  const router = useRouter();
+  function showNewEventPage() {
+    router.push('/events/create')
+  }
   
   return (
     <div>
@@ -70,6 +75,7 @@ export default function EventList() {
         onFilterModelChange={setFilterModel}
         onRowClick={onRowClick}
       />
+      <Button onClick={showNewEventPage} variant="contained">New Event</Button>
     </div>
   );
 }
