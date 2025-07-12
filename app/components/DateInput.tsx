@@ -24,12 +24,12 @@ export default function DateInputExample({
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
-        label="From Date"
+        label="From"
         onChange={onFromDateChange}
         slotProps={{ textField: { variant: "filled", size: "small" } }}
       />
       <DatePicker
-        label="To Date"
+        label="To"
         onChange={handleToDateChange}
         slotProps={{ textField: { variant: "filled", size: "small" } }}
       />
