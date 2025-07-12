@@ -8,30 +8,33 @@ import { Controller, useForm } from "react-hook-form";
 import InputFileUpload from "../../components/UploadFileButton";
 import { useGetOneEvent } from "../../hooks/useGetOneEvent";
 import { updateEventWithThumbnail } from "@/lib/updateEvent";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { UpdateEventFormValues } from "../../interfaces/updateEventFormValues";
 import { EventStatus } from "../../interfaces/eventStatus.enum";
 
-const onSubmit = async (eventId: number, data: UpdateEventFormValues) => {
-  if (!data.fromDate || !data.toDate) return;
-
-  try {
-    await updateEventWithThumbnail(eventId, {
-      name: data.name,
-      location: data.location,
-      fromDate: data.fromDate,
-      toDate: data.toDate,
-      thumbnail: data.thumbnail,
-      status: data.status,
-    });
-    alert("ok");
-  } catch (e) {
-    console.log(e);
-    alert(`error: ${e}`);
-  }
-};
 
 export default function UpdateEvent() {
+  const router = useRouter()
+  const onSubmit = async (eventId: number, data: UpdateEventFormValues) => {
+    if (!data.fromDate || !data.toDate) return;
+  
+    try {
+      await updateEventWithThumbnail(eventId, {
+        name: data.name,
+        location: data.location,
+        fromDate: data.fromDate,
+        toDate: data.toDate,
+        thumbnail: data.thumbnail,
+        status: data.status,
+      });
+      alert("Event Updated.");
+      router.push("/admin/events")
+    } catch (e) {
+      console.log(e);
+      alert(`error: ${e}`);
+    }
+  };
+  
   const { error, data, isLoading } = useGetOneEvent();
   const { id: eventId } = useParams();
 
