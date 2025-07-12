@@ -5,14 +5,7 @@ import { useState } from "react";
 import InputFileUpload from "../components/UploadFileButton";
 import { useForm, Controller } from "react-hook-form";
 import DateInput from "@/app/components/DateInput";
-
-type EventFormValues = {
-  name: string;
-  location: string;
-  fromDate: Date | null;
-  toDate: Date | null;
-  thumbnail: FileList | null;
-};
+import { EventFormValues } from "../interfaces/eventFormValues.interface";
 
 const onSubmit = (data: EventFormValues) => {
   console.log("Submitted data:", data);
