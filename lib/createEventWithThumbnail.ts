@@ -1,5 +1,4 @@
-import CreateNewEvent from "@/app/events/create/page";
-import { createEvent } from "@/services/eventService";
+import { createEvent, uploadEventThumbnail } from "@/services/eventService";
 
 export interface createEventWithThumbnailData {
   name: string;
@@ -11,10 +10,12 @@ export interface createEventWithThumbnailData {
 
 export async function createEventWithThumbnail(data: createEventWithThumbnailData) {
   console.log("Submitted data:", data);
-  await createEvent({
+  const {id: eventId} = await createEvent({
       name: data.name,
       startDate: data.fromDate.toISOString(),
       endDate: data.toDate.toISOString(),
       location: data.location,
   })
+
+  await uploadEventThumbnail(eventId, data.thumbnail)
 }

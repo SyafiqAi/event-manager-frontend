@@ -76,3 +76,26 @@ export const createEvent = async (body: CreateEventBody) => {
   console.log({ js });
   return js;
 };
+
+export const uploadEventThumbnail = async (eventId:number, fileList: FileList) => {
+  const token = localStorage.getItem('accessToken');
+  if (!token) throw new Error('No token found');
+  if (!fileList.length) throw new Error('No file selected');
+
+  const formData = new FormData();
+  formData.append('file', fileList[0]); // Assuming single file for now
+
+  const res = await fetch(`http://localhost:9000/events/${eventId}/poster`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Failed to upload image');
+  }
+};
+
