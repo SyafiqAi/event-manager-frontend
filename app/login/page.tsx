@@ -5,6 +5,6 @@ import { Role } from "../interfaces/role.enum";
 
 export default function UserLoginPage() {
     return <div>
-        <LoginForm role={Role.USER} />
+        <LoginForm />
     </div>
 }

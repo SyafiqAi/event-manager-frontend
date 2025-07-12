@@ -1,6 +1,6 @@
 "use client";
 
-import { login } from "@/services/authService";
+import { getProfile, login } from "@/services/authService";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
@@ -11,7 +11,7 @@ interface LoginFormValues {
   password: string;
 }
 
-export default function LoginForm({ role }: { role: Role }) {
+export default function LoginForm() {
   const {
     control,
     handleSubmit,
@@ -26,6 +26,8 @@ export default function LoginForm({ role }: { role: Role }) {
       console.log({ access_token });
       localStorage.setItem("accessToken", access_token);
 
+      const {role} = await getProfile();
+      
       router.push(role === Role.USER ? "/events" : "/admin/events");
     } catch (e) {
       alert(e);

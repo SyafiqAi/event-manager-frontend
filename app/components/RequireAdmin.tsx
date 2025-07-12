@@ -24,7 +24,7 @@ export default function RequireAdmin({ children }: RequireAdminProps) {
   });
 
   useEffect(() => {
-    if (!isLoading && user && user.role !== "ADMIN") {
+    if (!isLoading && user && user.role !== Role.ADMIN) {
       router.push("/unauthorized");
     }
   }, [user, isLoading, router]);
