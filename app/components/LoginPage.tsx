@@ -4,13 +4,14 @@ import { login } from "@/services/authService";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
+import { Role } from "../interfaces/role.enum";
 
 interface LoginFormValues {
   email: string;
   password: string;
 }
 
-export default function LoginForm() {
+export default function LoginForm({ role }: { role: Role }) {
   const {
     control,
     handleSubmit,
@@ -20,14 +21,14 @@ export default function LoginForm() {
   const router = useRouter();
   const onSubmit = async (data: LoginFormValues) => {
     try {
-        console.log("Login data:", data);
-        const { access_token } = await login(data.email, data.password);
-        console.log({access_token})
-        localStorage.setItem("accessToken", access_token);
-    
-        router.push("/events");
+      console.log("Login data:", data);
+      const { access_token } = await login(data.email, data.password);
+      console.log({ access_token });
+      localStorage.setItem("accessToken", access_token);
+
+      router.push(role === Role.USER ? "/events" : "/admin/events");
     } catch (e) {
-        alert(e)
+      alert(e);
     }
   };
 
