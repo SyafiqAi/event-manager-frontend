@@ -1,6 +1,8 @@
 "use client";
 
+import { login } from "@/services/authService";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 
 interface LoginFormValues {
@@ -13,12 +15,20 @@ export default function LoginPage() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormValues>();
+  } = useForm<LoginFormValues>({ defaultValues: { email: "", password: "" } });
 
-  const onSubmit = (data: LoginFormValues) => {
-    console.log("Login data:", data);
-    alert("Logged in!");
-    // Call your login service here
+  const router = useRouter();
+  const onSubmit = async (data: LoginFormValues) => {
+    try {
+        console.log("Login data:", data);
+        const { access_token } = await login(data.email, data.password);
+        console.log({access_token})
+        localStorage.setItem("accessToken", access_token);
+    
+        router.push("/events");
+    } catch (e) {
+        alert(e)
+    }
   };
 
   return (
