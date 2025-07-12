@@ -3,13 +3,18 @@
 import { useRouter } from "next/navigation";
 import { useEvents } from "../admin/events/hooks/useEvents";
 import TitlebarImageList from "./components/thumbnailGallery";
+import { Pagination } from "@mui/material";
+import EventPagination from "./components/eventPagination";
+import { useState } from "react";
 
 export default function EventsPage() {
-  const eventsQuery = useEvents({});
+    const [page, setPage] = useState(1);
+
+  const eventsQuery = useEvents({page});
 
   const router = useRouter();
   function showEventPage(eventId: number) {
-    router.push(`events/${eventId}`)
+    router.push(`events/${eventId}`);
   }
 
   return (
@@ -17,6 +22,13 @@ export default function EventsPage() {
       <TitlebarImageList
         onEventClick={showEventPage}
         eventsList={eventsQuery.data?.data ?? []}
+      />
+      <EventPagination
+        page={page}
+        totalPages={eventsQuery.data?.totalPages??0}
+        onPageChange={(newPage) => {
+          setPage(newPage); // or whatever state setter you're using
+        }}
       />
     </div>
   );
