@@ -11,9 +11,9 @@ import {
   GridSortModel,
 } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
-import { Event } from "../interfaces/event.interface";
+import { Event } from "../../../events/interfaces/event.interface";
 import { Select, MenuItem, IconButton } from "@mui/material";
-import { EventStatus } from "../interfaces/eventStatus.enum";
+import { EventStatus } from "../../../events/interfaces/eventStatus.enum";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const statusOptions: EventStatus[] = [

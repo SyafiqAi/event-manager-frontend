@@ -7,10 +7,10 @@ import {
 } from "@mui/x-data-grid";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { useEvents } from "./hooks/useEvents";
+import { useEvents } from "../../events/hooks/useEvents";
 import { Button, TextField } from "@mui/material";
-import SearchInput from "../components/SearchInput";
-import DateInputToFrom from "../components/DateInputToFrom";
+import SearchInput from "../../components/SearchInput";
+import DateInputToFrom from "../../components/DateInputToFrom";
 import { useRouter } from "next/navigation";
 import PasswordDialog from "./components/PasswordConfirmationForDelete";
 import { deleteEvent } from "@/services/eventService";
