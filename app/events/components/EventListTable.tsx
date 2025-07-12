@@ -12,8 +12,9 @@ import {
 } from "@mui/x-data-grid";
 import Paper from "@mui/material/Paper";
 import { Event } from "../interfaces/event.interface";
-import { Select, MenuItem } from "@mui/material";
+import { Select, MenuItem, IconButton } from "@mui/material";
 import { EventStatus } from "../interfaces/eventStatus.enum";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const statusOptions: EventStatus[] = [
   EventStatus.COMPLETED,
@@ -45,33 +46,59 @@ const statusEqualsOperator: GridFilterOperator = {
   ),
 };
 
-const columns: GridColDef<Event>[] = [
-  { field: "name", headerName: "Name", width: 130, filterable: false },
-  { field: "location", headerName: "Location", width: 130, filterable: false },
-  {
-    field: "status",
-    headerName: "Status",
-    width: 130,
-    sortable: false,
-    filterOperators: [statusEqualsOperator],
-  },
-  {
-    field: "startDate",
-    headerName: "From",
-    width: 130,
-    valueGetter: (value, row) =>
-      `${new Date(row.startDate).toLocaleDateString()}`,
-    filterable: false,
-  },
-  {
-    field: "endDate",
-    headerName: "To",
-    width: 130,
-    valueGetter: (value, row) =>
-      `${new Date(row.endDate).toLocaleDateString()}`,
-    filterable: false,
-  },
-];
+const columns: (onRowDelete: (eventId: number) => void) => GridColDef<Event>[] = (onRowDelete) => {
+  return [
+    { field: "name", headerName: "Name", width: 130, filterable: false },
+    {
+      field: "location",
+      headerName: "Location",
+      width: 130,
+      filterable: false,
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      width: 130,
+      sortable: false,
+      filterOperators: [statusEqualsOperator],
+    },
+    {
+      field: "startDate",
+      headerName: "From",
+      width: 130,
+      valueGetter: (value, row) =>
+        `${new Date(row.startDate).toLocaleDateString()}`,
+      filterable: false,
+    },
+    {
+      field: "endDate",
+      headerName: "To",
+      width: 130,
+      valueGetter: (value, row) =>
+        `${new Date(row.endDate).toLocaleDateString()}`,
+      filterable: false,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 80,
+      sortable: false,
+      filterable: false,
+      renderCell: (params) => (
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation(); // prevent triggering onRowClick
+            onRowDelete(params.row.id)
+          }}
+          size="small"
+          color="error"
+        >
+          <DeleteIcon />
+        </IconButton>
+      ),
+    },
+  ];
+};
 
 type EventListTableProps = {
   data?: Event[];
@@ -82,6 +109,7 @@ type EventListTableProps = {
   onSortModelChange: (model: GridSortModel) => void;
   onFilterModelChange: (model: GridFilterModel) => void;
   onRowClick: (eventId: number) => void;
+  onRowDelete: (eventId: number) => void;
 };
 
 export default function EventListTable({
@@ -93,12 +121,13 @@ export default function EventListTable({
   paginationModel,
   onSortModelChange,
   onFilterModelChange,
+  onRowDelete,
 }: EventListTableProps) {
   return (
     <Paper sx={{ height: 400, width: "100%" }}>
       <DataGrid
         rows={data ?? []}
-        columns={columns}
+        columns={columns(onRowDelete)}
         pagination
         paginationMode="server"
         rowCount={rowCount}

@@ -97,16 +97,19 @@ export const updateEvent = async (eventId: number, body: UpdateEventBody) => {
   }
 };
 
-export const uploadEventThumbnail = async (eventId:number, fileList: FileList) => {
-  const token = localStorage.getItem('accessToken');
-  if (!token) throw new Error('No token found');
-  if (!fileList.length) throw new Error('No file selected');
+export const uploadEventThumbnail = async (
+  eventId: number,
+  fileList: FileList,
+) => {
+  const token = localStorage.getItem("accessToken");
+  if (!token) throw new Error("No token found");
+  if (!fileList.length) throw new Error("No file selected");
 
   const formData = new FormData();
-  formData.append('file', fileList[0]); // Assuming single file for now
+  formData.append("file", fileList[0]); // Assuming single file for now
 
   const res = await fetch(`http://localhost:9000/events/${eventId}/poster`, {
-    method: 'POST',
+    method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -115,13 +118,13 @@ export const uploadEventThumbnail = async (eventId:number, fileList: FileList) =
 
   if (!res.ok) {
     const error = await res.json();
-    throw new Error(error.message || 'Failed to upload image');
+    throw new Error(error.message || "Failed to upload image");
   }
 };
 
 export const getOneEvent = async (eventId: number) => {
-    const token = localStorage.getItem('accessToken');
-  if (!token) throw new Error('No token found');
+  const token = localStorage.getItem("accessToken");
+  if (!token) throw new Error("No token found");
 
   const res = await fetch(`http://localhost:9000/events/${eventId}`, {
     headers: {
@@ -131,8 +134,27 @@ export const getOneEvent = async (eventId: number) => {
 
   if (!res.ok) {
     const error = await res.json();
-    throw new Error(error.message || 'Failed to upload image');
+    throw new Error(error.message || "Failed to get event");
   }
 
   return await res.json();
-} 
+};
+
+export const deleteEvent = async (eventId: number, password: string) => {
+  const token = localStorage.getItem("accessToken");
+  if (!token) throw new Error("No token found");
+
+  const res = await fetch(`http://localhost:9000/events/${eventId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({ password }),
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || "Failed to delete event");
+  }
+};
