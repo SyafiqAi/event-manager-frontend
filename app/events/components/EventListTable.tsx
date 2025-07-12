@@ -46,8 +46,29 @@ const statusEqualsOperator: GridFilterOperator = {
   ),
 };
 
-const columns: (onRowDelete: (eventId: number) => void) => GridColDef<Event>[] = (onRowDelete) => {
+const columns: (
+  onRowDelete: (eventId: number) => void,
+) => GridColDef<Event>[] = (onRowDelete) => {
   return [
+    {
+      field: "posterUrl",
+      headerName: "Thumbnail",
+      width: 100,
+      sortable: false,
+      filterable: false,
+      renderCell: (params) => (
+        <img
+          src={`http://localhost:9000${params.value}`}
+          alt="Thumbnail"
+          style={{
+            width: "50px",
+            height: "50px",
+            objectFit: "cover",
+            borderRadius: "4px",
+          }}
+        />
+      ),
+    },
     { field: "name", headerName: "Name", width: 130, filterable: false },
     {
       field: "location",
@@ -88,7 +109,7 @@ const columns: (onRowDelete: (eventId: number) => void) => GridColDef<Event>[] =
         <IconButton
           onClick={(e) => {
             e.stopPropagation(); // prevent triggering onRowClick
-            onRowDelete(params.row.id)
+            onRowDelete(params.row.id);
           }}
           size="small"
           color="error"
