@@ -1,5 +1,6 @@
 import { EventStatus } from "@/app/events/interfaces/eventStatus.enum";
 import { CreateEventBody } from "@/interfaces/createEventBody";
+import { UpdateEventBody } from "@/interfaces/updateEventBody";
 
 export interface FetchEventsParams {
   search?: string;
@@ -77,6 +78,25 @@ export const createEvent = async (body: CreateEventBody) => {
   return js;
 };
 
+export const updateEvent = async (eventId: number, body: UpdateEventBody) => {
+  const token = localStorage.getItem("accessToken");
+
+  let url = `http://localhost:9000/events/${eventId}`;
+  const res = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || "Failed to update event");
+  }
+};
+
 export const uploadEventThumbnail = async (eventId:number, fileList: FileList) => {
   const token = localStorage.getItem('accessToken');
   if (!token) throw new Error('No token found');
@@ -99,3 +119,20 @@ export const uploadEventThumbnail = async (eventId:number, fileList: FileList) =
   }
 };
 
+export const getOneEvent = async (eventId: number) => {
+    const token = localStorage.getItem('accessToken');
+  if (!token) throw new Error('No token found');
+
+  const res = await fetch(`http://localhost:9000/events/${eventId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Failed to upload image');
+  }
+
+  return await res.json();
+} 

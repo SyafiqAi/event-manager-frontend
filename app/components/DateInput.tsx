@@ -5,6 +5,7 @@ import { endOfDay } from "date-fns";
 import { useState } from "react";
 
 interface DateInputProps {
+  value: Date | null;
   onDateChange: (date: Date | null) => void;
   label: string;
   error?: boolean;
@@ -12,6 +13,7 @@ interface DateInputProps {
 }
 
 export default function DateInput({
+  value,
   onDateChange,
   label,
   error = false,
@@ -25,6 +27,7 @@ export default function DateInput({
         slotProps={{
           textField: { variant: "filled", size: "small", error, helperText },
         }}
+        value={value}
       />
     </LocalizationProvider>
   );
