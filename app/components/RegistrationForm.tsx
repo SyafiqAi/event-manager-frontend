@@ -14,7 +14,13 @@ export default function RegisterPage() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterFormValues>();
+  } = useForm<RegisterFormValues>({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+  });
 
   const onSubmit = (data: RegisterFormValues) => {
     console.log("Register data:", data);
