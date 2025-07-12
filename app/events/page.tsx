@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useEvents } from "./hooks/useEvents";
 import { Button, TextField } from "@mui/material";
 import SearchInput from "../components/SearchInput";
-import DateInputToFrom from "../components/DateInput";
+import DateInputToFrom from "../components/DateInputToFrom";
 import { useRouter } from "next/navigation";
 
 // Dynamically import EventListTable with SSR disabled
