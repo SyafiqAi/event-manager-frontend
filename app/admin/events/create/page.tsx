@@ -2,10 +2,10 @@
 
 import { Box, Button, Stack, TextField } from "@mui/material";
 import { useState } from "react";
-import InputFileUpload from "../../admin/events/components/UploadFileButton";
+import InputFileUpload from "../components/UploadFileButton";
 import { useForm, Controller } from "react-hook-form";
 import DateInput from "@/app/components/DateInput";
-import { EventFormValues } from "../../admin/events/interfaces/eventFormValues.interface";
+import { EventFormValues } from "../interfaces/eventFormValues.interface";
 import { createEventWithThumbnail } from "@/lib/createEventWithThumbnail";
 
 const onSubmit = async (data: EventFormValues) => {

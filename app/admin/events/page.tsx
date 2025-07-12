@@ -48,7 +48,7 @@ export default function EventList() {
 
   const router = useRouter();
   function showNewEventPage() {
-    router.push("/events/create");
+    router.push("/admin/events/create");
   }
 
   function showUpdateEventPage(eventId: number) {
