@@ -7,7 +7,7 @@ import {
 } from "@mui/x-data-grid";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { useEvents } from "../../events/hooks/useEvents";
+import { useEvents } from "../events/hooks/useEvents";
 import { Button, TextField } from "@mui/material";
 import SearchInput from "../../components/SearchInput";
 import DateInputToFrom from "../../components/DateInputToFrom";
@@ -52,7 +52,7 @@ export default function EventList() {
   }
 
   function showUpdateEventPage(eventId: number) {
-    router.push(`/events/${eventId}/update`);
+    router.push(`/admin/events/${eventId}/update`);
   }
 
   //#region delete

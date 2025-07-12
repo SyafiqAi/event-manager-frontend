@@ -1,4 +1,4 @@
-import { EventStatus } from "@/app/events/interfaces/eventStatus.enum";
+import { EventStatus } from "@/app/admin/events/interfaces/eventStatus.enum";
 import { CreateEventBody } from "@/interfaces/createEventBody";
 import { UpdateEventBody } from "@/interfaces/updateEventBody";
 

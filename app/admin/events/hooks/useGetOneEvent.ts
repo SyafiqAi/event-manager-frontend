@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { getOneEvent } from '@/services/eventService';
-import { Event } from '@/app/events/interfaces/event.interface';
+import { Event } from '@/app/admin/events/interfaces/event.interface';
 
 export function useGetOneEvent() {
   const params = useParams();
