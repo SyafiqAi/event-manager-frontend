@@ -53,7 +53,7 @@ const columns: (
     {
       field: "posterUrl",
       headerName: "Thumbnail",
-      width: 100,
+      flex: 0.5,
       sortable: false,
       filterable: false,
       renderCell: (params) => (
@@ -69,24 +69,24 @@ const columns: (
         />
       ),
     },
-    { field: "name", headerName: "Name", width: 130, filterable: false },
+    { field: "name", headerName: "Name", flex: 1, filterable: false },
     {
       field: "location",
       headerName: "Location",
-      width: 130,
+      flex: 1,
       filterable: false,
     },
     {
       field: "status",
       headerName: "Status",
-      width: 130,
+      flex: 1,
       sortable: false,
       filterOperators: [statusEqualsOperator],
     },
     {
       field: "startDate",
       headerName: "From",
-      width: 130,
+      flex: 1,
       valueGetter: (value, row) =>
         `${new Date(row.startDate).toLocaleDateString()}`,
       filterable: false,
@@ -94,7 +94,7 @@ const columns: (
     {
       field: "endDate",
       headerName: "To",
-      width: 130,
+      flex: 1,
       valueGetter: (value, row) =>
         `${new Date(row.endDate).toLocaleDateString()}`,
       filterable: false,
@@ -102,7 +102,7 @@ const columns: (
     {
       field: "actions",
       headerName: "Actions",
-      width: 80,
+      flex: 1,
       sortable: false,
       filterable: false,
       renderCell: (params) => (
