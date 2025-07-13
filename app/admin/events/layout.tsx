@@ -1,11 +1,16 @@
-"use client"
+"use client";
 
 import RequireAdmin from "@/app/components/RequireAdmin";
+import RequireAuth from "@/app/components/RequireAuth";
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <RequireAdmin>{children}</RequireAdmin>;
+  return (
+    <RequireAuth>
+      <RequireAdmin>{children}</RequireAdmin>
+    </RequireAuth>
+  );
 }
