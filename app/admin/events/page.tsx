@@ -80,7 +80,7 @@ export default function EventList() {
   //#endregion
   return (
     <div>
-      <Box mb={'30px'}>
+      <Box mb={'30px'} width={{sm: '100%', md: '600px'}}>
         <SearchInput
           value={search}
           placeholder="Search event name or location"
