@@ -181,18 +181,10 @@ export default function UpdateEvent() {
                 field.onChange(e);
                 handleFileChange(e);
               }}
+              previewUrl={previewUrl}
             />
           )}
-        />{" "}
-        {previewUrl && (
-          <Box mt={2}>
-            <img
-              src={previewUrl}
-              alt="Event Poster Preview"
-              style={{ maxWidth: "300px", borderRadius: "8px" }}
-            />
-          </Box>
-        )}
+        />
         <Button type="submit" variant="contained">
           Submit
         </Button>
