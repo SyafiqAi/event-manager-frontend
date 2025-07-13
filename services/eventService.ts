@@ -2,6 +2,8 @@ import { EventStatus } from "@/app/admin/events/interfaces/eventStatus.enum";
 import { CreateEventBody } from "@/interfaces/createEventBody";
 import { UpdateEventBody } from "@/interfaces/updateEventBody";
 
+const api = process.env.NEXT_PUBLIC_API_URL;
+
 export interface FetchEventsParams {
   search?: string;
   sortBy?: string;
@@ -38,7 +40,7 @@ export const fetchEvents = async ({
   if (toDate) params.append("toDate", toDate.toISOString());
   if (status) params.append("status", status);
 
-  let url = `http://localhost:9000/events?${params.toString()}`;
+  let url = `${api}/events?${params.toString()}`;
   const res = await fetch(url, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -57,7 +59,7 @@ export const fetchEvents = async ({
 export const createEvent = async (body: CreateEventBody) => {
   const token = localStorage.getItem("accessToken");
 
-  let url = `http://localhost:9000/events`;
+  let url = `${api}/events`;
   const res = await fetch(url, {
     method: "POST",
     headers: {
@@ -79,7 +81,7 @@ export const createEvent = async (body: CreateEventBody) => {
 export const updateEvent = async (eventId: number, body: UpdateEventBody) => {
   const token = localStorage.getItem("accessToken");
 
-  let url = `http://localhost:9000/events/${eventId}`;
+  let url = `${api}/events/${eventId}`;
   const res = await fetch(url, {
     method: "PATCH",
     headers: {
@@ -106,7 +108,7 @@ export const uploadEventThumbnail = async (
   const formData = new FormData();
   formData.append("file", fileList[0]); // Assuming single file for now
 
-  const res = await fetch(`http://localhost:9000/events/${eventId}/poster`, {
+  const res = await fetch(`${api}/events/${eventId}/poster`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -124,7 +126,7 @@ export const getOneEvent = async (eventId: number) => {
   const token = localStorage.getItem("accessToken");
   if (!token) throw new Error("No token found");
 
-  const res = await fetch(`http://localhost:9000/events/${eventId}`, {
+  const res = await fetch(`${api}/events/${eventId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -142,7 +144,7 @@ export const deleteEvent = async (eventId: number, password: string) => {
   const token = localStorage.getItem("accessToken");
   if (!token) throw new Error("No token found");
 
-  const res = await fetch(`http://localhost:9000/events/${eventId}`, {
+  const res = await fetch(`${api}/events/${eventId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,

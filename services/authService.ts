@@ -1,7 +1,9 @@
 import { Role } from "@/app/interfaces/role.enum";
 
+const api = process.env.NEXT_PUBLIC_API_URL;
+
 export const login = async (email: string, password: string) => {
-  const url = `http://localhost:9000/auth/login`;
+  const url = `${api}/auth/login`;
 
   const res = await fetch(url, {
     method: "POST",
@@ -23,7 +25,7 @@ export const register = async (
   name: string,
   role: Role,
 ) => {
-  const url = `http://localhost:9000/auth/register`;
+  const url = `${api}/auth/register`;
 
   const res = await fetch(url, {
     method: "POST",
@@ -43,7 +45,7 @@ export const getProfile = async () => {
   const token = localStorage.getItem("accessToken");
   if (!token) throw new Error("No token found");
 
-  const url = `http://localhost:9000/auth/profile`;
+  const url = `${api}/auth/profile`;
 
   const res = await fetch(url, {
     headers: {
