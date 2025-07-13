@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, Container, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import InputFileUpload from "../components/UploadFileButton";
 import { useForm, Controller } from "react-hook-form";
@@ -8,13 +8,14 @@ import DateInput from "@/app/components/DateInput";
 import { EventFormValues } from "../interfaces/eventFormValues.interface";
 import { createEventWithThumbnail } from "@/lib/createEventWithThumbnail";
 import { useRouter } from "next/navigation";
-
+import ImageIcon from '@mui/icons-material/Image';
+import ImageUploadPreview from "../components/UploadFileButton";
 
 export default function CreateNewEvent() {
   const router = useRouter();
   const onSubmit = async (data: EventFormValues) => {
     if (!data.fromDate || !data.toDate || !data.thumbnail) return;
-  
+
     try {
       await createEventWithThumbnail({
         name: data.name,
@@ -24,8 +25,7 @@ export default function CreateNewEvent() {
         thumbnail: data.thumbnail,
       });
       alert("Event Created");
-      router.push('/admin/events')
-      
+      router.push("/admin/events");
     } catch (e) {
       console.log(e);
       alert(`error: ${e}`);
@@ -125,6 +125,7 @@ export default function CreateNewEvent() {
             />
           )}
         />
+
         <Controller
           name="thumbnail"
           control={control}
@@ -132,27 +133,20 @@ export default function CreateNewEvent() {
             required: "Thumbnail is required",
           }}
           render={({ field }) => (
-            <InputFileUpload
+            <ImageUploadPreview
               onChange={(e) => {
                 field.onChange(e);
                 handleFileChange(e);
               }}
+              previewUrl={previewUrl}
             />
           )}
-        />{" "}
+        />
+
         {errors.thumbnail && (
           <span style={{ color: "red", fontSize: "0.8rem" }}>
             {errors.thumbnail.message}
           </span>
-        )}
-        {previewUrl && (
-          <Box mt={2}>
-            <img
-              src={previewUrl}
-              alt="Event Poster Preview"
-              style={{ maxWidth: "300px", borderRadius: "8px" }}
-            />
-          </Box>
         )}
         <Button type="submit" variant="contained">
           Submit

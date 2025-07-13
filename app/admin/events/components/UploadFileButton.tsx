@@ -1,7 +1,9 @@
+"use client";
+
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Box, Button, Container } from "@mui/material";
+import ImageIcon from "@mui/icons-material/Image";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -15,26 +17,70 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-export default function InputFileUpload({
+export default function ImageUploadPreview({
+  previewUrl,
   onChange,
 }: {
+  previewUrl: string | null;
   onChange: (fileList: FileList | null) => void;
 }) {
   return (
-    <Button
-      component="label"
-      role={undefined}
-      variant="contained"
-      tabIndex={-1}
-      startIcon={<CloudUploadIcon />}
+    <Container
+      sx={{
+        marginTop: "10px",
+        width: "100%",
+        height: "400px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        cursor: "pointer",
+        position: "relative",
+        backgroundColor: previewUrl ? null : "lightgray",
+      }}
     >
-      Upload files
-      <VisuallyHiddenInput
-        type="file"
-        onChange={(event) => onChange(event.target.files)}
-        multiple
-        accept="image/*"
-      />
-    </Button>
+      <label style={{ width: "100%", height: "100%", cursor: "pointer" }}>
+        {previewUrl ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+              color: "black",
+            }}
+          >
+            <img
+              src={previewUrl}
+              alt="Event Poster Preview"
+              style={{
+                maxHeight: "100%",
+                maxWidth: "300px",
+                borderRadius: "8px",
+                display: "block",
+                margin: "0 auto",
+              }}
+            />
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+              color: "black",
+            }}
+          >
+            <ImageIcon sx={{ fontSize: 64 }} />
+            <div>Click to upload thumbnail</div>
+          </Box>
+        )}
+        <VisuallyHiddenInput
+          type="file"
+          accept="image/*"
+          onChange={(event) => onChange(event.target.files)}
+        />
+      </label>
+    </Container>
   );
 }
