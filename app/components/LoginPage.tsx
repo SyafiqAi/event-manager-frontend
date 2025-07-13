@@ -1,7 +1,7 @@
 "use client";
 
 import { getProfile, login } from "@/services/authService";
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Link, Stack, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { Role } from "../interfaces/role.enum";
@@ -24,8 +24,8 @@ export default function LoginForm() {
       const { access_token } = await login(data.email, data.password);
       localStorage.setItem("accessToken", access_token);
 
-      const {role} = await getProfile();
-      
+      const { role } = await getProfile();
+
       router.push(role === Role.USER ? "/events" : "/admin/events");
     } catch (e) {
       alert(e);
@@ -71,6 +71,15 @@ export default function LoginForm() {
           <Button type="submit" variant="contained">
             Login
           </Button>
+          <Typography variant="body2" textAlign="center">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/register"
+              style={{ color: "#1976d2", textDecoration: "none" }}
+            >
+              Register here
+            </Link>
+          </Typography>
         </Stack>
       </form>
     </Box>
