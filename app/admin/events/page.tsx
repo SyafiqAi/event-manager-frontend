@@ -8,12 +8,13 @@ import {
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useEvents } from "../events/hooks/useEvents";
-import { Button, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import SearchInput from "../../components/SearchInput";
 import DateInputToFrom from "../../components/DateInputToFrom";
 import { useRouter } from "next/navigation";
 import PasswordDialog from "./components/PasswordConfirmationForDelete";
 import { deleteEvent } from "@/services/eventService";
+import AddIcon from '@mui/icons-material/Add';
 
 // Dynamically import EventListTable with SSR disabled
 const EventListTable = dynamic(() => import("./components/EventListTable"), {
@@ -68,26 +69,28 @@ export default function EventList() {
     setPasswordDialogOpen(false);
     console.log("Deleting event", selectedEventId, "with password:", password);
     try {
-      await deleteEvent(selectedEventId!, password)
-      alert("Event Deleted.")
-      await res.refetch()
+      await deleteEvent(selectedEventId!, password);
+      alert("Event Deleted.");
+      await res.refetch();
     } catch (e) {
-      console.log(e)
-      alert(e)
+      console.log(e);
+      alert(e);
     }
   };
   //#endregion
   return (
     <div>
-      <SearchInput
-        value={search}
-        placeholder="Search event name or location"
-        onDebouncedChange={setSearch}
-      />
-      <DateInputToFrom
-        onFromDateChange={setFromDate}
-        onToDateChange={setToDate}
-      />
+      <Box mb={'30px'}>
+        <SearchInput
+          value={search}
+          placeholder="Search event name or location"
+          onDebouncedChange={setSearch}
+        />
+        <DateInputToFrom
+          onFromDateChange={setFromDate}
+          onToDateChange={setToDate}
+        />
+      </Box>
       <EventListTable
         onRowDelete={handleDeleteClick}
         data={res.data?.data}
@@ -99,8 +102,8 @@ export default function EventList() {
         onFilterModelChange={setFilterModel}
         onRowClick={showUpdateEventPage}
       />
-      <Button onClick={showNewEventPage} variant="contained">
-        New Event
+      <Button onClick={showNewEventPage} variant="contained" startIcon={<AddIcon />} sx={{marginTop: '30px'}}>
+         Event
       </Button>
       <PasswordDialog
         open={passwordDialogOpen}
