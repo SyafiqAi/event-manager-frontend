@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEvents } from "../admin/events/hooks/useEvents";
 import TitlebarImageList from "./components/thumbnailGallery";
-import { Pagination } from "@mui/material";
+import { Pagination, Typography } from "@mui/material";
 import EventPagination from "./components/eventPagination";
 import { useState } from "react";
 
@@ -19,6 +19,9 @@ export default function EventsPage() {
 
   return (
     <div>
+      <Typography variant="h4" mb={3}>
+        Events
+      </Typography>
       <TitlebarImageList
         onEventClick={showEventPage}
         eventsList={eventsQuery.data?.data ?? []}

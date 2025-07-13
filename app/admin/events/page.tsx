@@ -8,7 +8,7 @@ import {
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useEvents } from "../events/hooks/useEvents";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import SearchInput from "../../components/SearchInput";
 import DateInputToFrom from "../../components/DateInputToFrom";
 import { useRouter } from "next/navigation";
@@ -80,6 +80,9 @@ export default function EventList() {
   //#endregion
   return (
     <div>
+      <Typography variant="h4" mb={3}>
+        Events
+      </Typography>
       <Box mb={'30px'} width={{sm: '100%', md: '600px'}}>
         <SearchInput
           value={search}
