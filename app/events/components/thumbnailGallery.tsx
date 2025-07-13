@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import { Event } from "@/app/admin/events/interfaces/event.interface";
 import { Box } from "@mui/material";
+import { getEventPosterImgUrl } from "@/lib/getEventPosterImgUrl";
 
 export default function TitlebarImageList({
   eventsList,
@@ -32,7 +33,7 @@ export default function TitlebarImageList({
             onClick={() => {
               onEventClick(event.id);
             }}
-            src={`http://localhost:9000${event.posterUrl}`}
+            src={getEventPosterImgUrl(event.posterUrl)}
             alt={event.name}
             loading="lazy"
           />

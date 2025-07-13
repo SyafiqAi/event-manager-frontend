@@ -1,5 +1,6 @@
 "use client";
 import { useGetOneEvent } from "@/app/admin/events/hooks/useGetOneEvent";
+import { getEventPosterImgUrl } from "@/lib/getEventPosterImgUrl";
 import { Box, Container, Grid, Typography } from "@mui/material";
 
 export default function showEventPage() {
@@ -12,7 +13,7 @@ export default function showEventPage() {
   return (
     <Box sx={{ p: 2 }} display={'flex'} flexDirection={'column'} alignItems={'center'}>
       <img
-        src={`http://localhost:9000${event.posterUrl}`}
+        src={getEventPosterImgUrl(event.posterUrl)}
         alt={event.name}
         style={{ maxHeight: "800px", borderRadius: "8px" }}
       />

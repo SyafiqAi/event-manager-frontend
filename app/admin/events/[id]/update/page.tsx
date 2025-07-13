@@ -24,6 +24,7 @@ import { useParams, useRouter } from "next/navigation";
 import { UpdateEventFormValues } from "../../interfaces/updateEventFormValues";
 import { EventStatus } from "../../interfaces/eventStatus.enum";
 import ImageUploadPreview from "../../components/UploadFileButton";
+import { getEventPosterImgUrl } from "@/lib/getEventPosterImgUrl";
 
 export default function UpdateEvent() {
   const router = useRouter();
@@ -78,7 +79,7 @@ export default function UpdateEvent() {
         status: data.status,
       });
 
-      setPreviewUrl(`http://localhost:9000${data.posterUrl}`);
+      setPreviewUrl(getEventPosterImgUrl(data.posterUrl));
     }
   }, [data, reset]);
 

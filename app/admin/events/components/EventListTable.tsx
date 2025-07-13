@@ -15,6 +15,7 @@ import { Event } from "../interfaces/event.interface";
 import { Select, MenuItem, IconButton } from "@mui/material";
 import { EventStatus } from "../interfaces/eventStatus.enum";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { getEventPosterImgUrl } from "@/lib/getEventPosterImgUrl";
 
 const statusOptions: EventStatus[] = [
   EventStatus.COMPLETED,
@@ -58,7 +59,7 @@ const columns: (
       filterable: false,
       renderCell: (params) => (
         <img
-          src={`http://localhost:9000${params.value}`}
+          src={getEventPosterImgUrl(params.value)}
           alt="Thumbnail"
           style={{
             width: "50px",
