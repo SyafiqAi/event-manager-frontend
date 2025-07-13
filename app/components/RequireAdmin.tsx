@@ -17,7 +17,6 @@ export default function RequireAdmin({ children }: RequireAdminProps) {
   const {
     data: user,
     isLoading,
-    isError,
   } = useQuery({
     queryKey: ["currentUser"],
     queryFn: getProfile,
@@ -25,10 +24,10 @@ export default function RequireAdmin({ children }: RequireAdminProps) {
 
   useEffect(() => {
     if (!isLoading && user && user.role !== Role.ADMIN) {
-      router.push("/unauthorized");
+      router.replace("/unauthorized");
     }
   }, [user, isLoading, router]);
-  
+
   if (isLoading) {
     return (
       <Box sx={{ p: 4, textAlign: "center" }}>
@@ -38,6 +37,14 @@ export default function RequireAdmin({ children }: RequireAdminProps) {
         </Typography>
       </Box>
     );
+  }
+
+  if (!user) {
+    return null; // or redirect to login if you prefer
+  }
+
+  if (user.role !== Role.ADMIN) {
+    return null; // Return nothing while useEffect handles the redirect
   }
 
   return <>{children}</>;

@@ -1,3 +1,5 @@
+"use client"
+
 import RequireAdmin from "@/app/components/RequireAdmin";
 
 export default function AdminLayout({
