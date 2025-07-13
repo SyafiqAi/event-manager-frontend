@@ -14,6 +14,7 @@ import {
   Select,
   Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -98,145 +99,153 @@ export default function UpdateEvent() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit((values) => onSubmit(Number(eventId), values))}
-    >
-      <Grid container spacing={2} columns={{ xs: 1, md: 12 }}>
-        <Grid size={6}>
-          <Stack
-            spacing={2}
-            height={"100%"}
-            display={"flex"}
-            flex={"col"}
-            justifyContent={"center"}
-          >
-            <Controller
-              name="name"
-              control={control}
-              rules={{ required: "Event name is required" }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Event Name"
-                  variant="filled"
-                  error={!!errors.name}
-                  helperText={errors.name?.message}
-                />
-              )}
-            />
-            <Controller
-              name="location"
-              control={control}
-              rules={{ required: "Location is required" }}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Location"
-                  variant="filled"
-                  error={!!errors.location}
-                  helperText={errors.location?.message}
-                />
-              )}
-            />
-            <Controller
-              name="fromDate"
-              control={control}
-              rules={{
-                required: "From date is required",
-              }}
-              render={({ field }) => (
-                <DateInput
-                  value={field.value}
-                  label="From"
-                  onDateChange={field.onChange}
-                  error={!!errors.fromDate}
-                  helperText={errors.fromDate?.message}
-                />
-              )}
-            />
-            <Controller
-              name="toDate"
-              control={control}
-              rules={{
-                required: "From date is required",
-                validate: (toDate) =>
-                  !toDate || !fromDateValue || toDate >= fromDateValue
-                    ? true
-                    : "To date must be after From date",
-              }}
-              render={({ field }) => (
-                <DateInput
-                  value={field.value}
-                  label="To"
-                  onDateChange={field.onChange}
-                  error={!!errors.toDate}
-                  helperText={errors.toDate?.message}
-                />
-              )}
-            />
-            <Controller
-              name="status"
-              control={control}
-              rules={{ required: "Status is required" }}
-              render={({ field }) => (
-                <FormControl
-                  variant="filled"
-                  size="small"
-                  error={!!errors.status}
-                >
-                  <InputLabel id="status-label">Status</InputLabel>
-                  <Select
-                    {...field}
-                    labelId="status-label"
-                    value={field.value ?? ""} // handle undefined case
-                  >
-                    <MenuItem value={EventStatus.ONGOING}>Ongoing</MenuItem>
-                    <MenuItem value={EventStatus.COMPLETED}>Completed</MenuItem>
-                  </Select>
-                  <FormHelperText>{errors.status?.message}</FormHelperText>
-                </FormControl>
-              )}
-            />
-          </Stack>
-        </Grid>
-        <Grid size={6}>
-          <Controller
-            name="thumbnail"
-            control={control}
-            render={({ field }) => (
-              <ImageUploadPreview
-                onChange={(e) => {
-                  field.onChange(e);
-                  handleFileChange(e);
-                }}
-                previewUrl={previewUrl}
-              />
-            )}
-          />
-        </Grid>
-      </Grid>
-      <Container
-        sx={{
-          marginTop: "10px",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          position: "relative",
-        }}
+    <Box>
+      <Typography variant="h4" mb={3}>
+        Update Event
+      </Typography>
+
+      <form
+        onSubmit={handleSubmit((values) => onSubmit(Number(eventId), values))}
       >
-        <Button
-          type="submit"
-          variant="contained"
-          fullWidth
+        <Grid container spacing={2} columns={{ xs: 1, md: 12 }}>
+          <Grid size={6}>
+            <Stack
+              spacing={2}
+              height={"100%"}
+              display={"flex"}
+              flex={"col"}
+              justifyContent={"center"}
+            >
+              <Controller
+                name="name"
+                control={control}
+                rules={{ required: "Event name is required" }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Event Name"
+                    variant="filled"
+                    error={!!errors.name}
+                    helperText={errors.name?.message}
+                  />
+                )}
+              />
+              <Controller
+                name="location"
+                control={control}
+                rules={{ required: "Location is required" }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Location"
+                    variant="filled"
+                    error={!!errors.location}
+                    helperText={errors.location?.message}
+                  />
+                )}
+              />
+              <Controller
+                name="fromDate"
+                control={control}
+                rules={{
+                  required: "From date is required",
+                }}
+                render={({ field }) => (
+                  <DateInput
+                    value={field.value}
+                    label="From"
+                    onDateChange={field.onChange}
+                    error={!!errors.fromDate}
+                    helperText={errors.fromDate?.message}
+                  />
+                )}
+              />
+              <Controller
+                name="toDate"
+                control={control}
+                rules={{
+                  required: "From date is required",
+                  validate: (toDate) =>
+                    !toDate || !fromDateValue || toDate >= fromDateValue
+                      ? true
+                      : "To date must be after From date",
+                }}
+                render={({ field }) => (
+                  <DateInput
+                    value={field.value}
+                    label="To"
+                    onDateChange={field.onChange}
+                    error={!!errors.toDate}
+                    helperText={errors.toDate?.message}
+                  />
+                )}
+              />
+              <Controller
+                name="status"
+                control={control}
+                rules={{ required: "Status is required" }}
+                render={({ field }) => (
+                  <FormControl
+                    variant="filled"
+                    size="small"
+                    error={!!errors.status}
+                  >
+                    <InputLabel id="status-label">Status</InputLabel>
+                    <Select
+                      {...field}
+                      labelId="status-label"
+                      value={field.value ?? ""} // handle undefined case
+                    >
+                      <MenuItem value={EventStatus.ONGOING}>Ongoing</MenuItem>
+                      <MenuItem value={EventStatus.COMPLETED}>
+                        Completed
+                      </MenuItem>
+                    </Select>
+                    <FormHelperText>{errors.status?.message}</FormHelperText>
+                  </FormControl>
+                )}
+              />
+            </Stack>
+          </Grid>
+          <Grid size={6}>
+            <Controller
+              name="thumbnail"
+              control={control}
+              render={({ field }) => (
+                <ImageUploadPreview
+                  onChange={(e) => {
+                    field.onChange(e);
+                    handleFileChange(e);
+                  }}
+                  previewUrl={previewUrl}
+                />
+              )}
+            />
+          </Grid>
+        </Grid>
+        <Container
           sx={{
-            mt: 2,
-            width: { xs: "100%", md: "150px" },
+            marginTop: "10px",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "relative",
           }}
         >
-          Submit
-        </Button>
-      </Container>
-    </form>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{
+              mt: 2,
+              width: { xs: "100%", md: "150px" },
+            }}
+          >
+            Submit
+          </Button>
+        </Container>
+      </form>
+    </Box>
   );
 }
