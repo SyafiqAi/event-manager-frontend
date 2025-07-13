@@ -28,7 +28,9 @@ export default function RegisterPage({ role }: { role: Role }) {
   const router = useRouter();
   const onSubmit = async (data: RegisterFormValues) => {
     try {
-      await register(data.email, data.password, data.name, role);
+      const {access_token} = await register(data.email, data.password, data.name, role);
+
+      localStorage.setItem("accessToken", access_token);
   
       router.push(role === Role.USER ? "/events" : "/admin/events");
     } catch(e) {
